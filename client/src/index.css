@@ -97,7 +97,7 @@
 
 /* Custom checkbox styling for better visibility */
 .checklist-checkbox {
-  @apply w-4 h-4 text-sf-blue focus:ring-sf-blue border-gray-300 rounded;
+  @apply w-4 h-4 text-sf-blue border-gray-300 rounded;
 }
 
 /* Priority styling */
