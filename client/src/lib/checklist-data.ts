@@ -28,7 +28,12 @@ export const checklistData: ChecklistItemData[] = [
     section: 'User Authentication & Access Control',
     subsection: 'Multi-Factor Authentication (MFA)',
     title: 'Configure MFA at the permission set level rather than profile level for granular control',
-    priority: 'critical'
+    priority: 'critical',
+    instructions: '1. Go to Setup → Permission Sets\n2. Create new permission set for MFA users\n3. Enable "Multi-Factor Authentication for User Interface Logins"\n4. Assign this permission set to specific users\n5. Remove MFA requirements from profiles\n6. Test login with assigned users',
+    references: [
+      'Salesforce Help: Permission Sets and MFA',
+      'Best Practices: Granular Security Controls'
+    ]
   },
   {
     id: 'auth-3',
@@ -718,7 +723,142 @@ export const checklistData: ChecklistItemData[] = [
     section: 'Application Security & Code Protection',
     subsection: 'Metadata Security',
     title: 'Monitor and audit all metadata deployments',
-    priority: 'low'
+    priority: 'low',
+    instructions: '1. Set up deployment tracking in your org\n2. Create reports for metadata changes\n3. Configure alerts for unauthorized deployments\n4. Review deployment logs regularly\n5. Maintain audit trail documentation\n6. Establish incident response for unauthorized changes',
+    references: [
+      'Metadata Deployment Monitoring',
+      'Change Management Best Practices'
+    ]
+  },
+  // Section 6: Monitoring & Compliance
+  {
+    id: 'monitor-1',
+    section: 'Monitoring & Compliance',
+    subsection: 'Audit Trail Configuration',
+    title: 'Enable Setup Audit Trail for all configuration changes',
+    priority: 'critical',
+    instructions: '1. Navigate to Setup → Security → View Setup Audit Trail\n2. Verify audit trail is automatically enabled\n3. Review current audit trail entries\n4. Set up regular audit trail reviews (weekly)\n5. Export audit trail data monthly for compliance\n6. Configure alerts for critical configuration changes',
+    references: [
+      'Salesforce Audit Trail Documentation',
+      'Compliance Monitoring Best Practices',
+      'SOX Audit Requirements'
+    ]
+  },
+  {
+    id: 'monitor-2',
+    section: 'Monitoring & Compliance',
+    subsection: 'Audit Trail Configuration',
+    title: 'Configure field history tracking for sensitive data fields',
+    priority: 'high',
+    instructions: '1. Go to Setup → Object Manager\n2. Select objects containing sensitive data\n3. Go to Fields & Relationships\n4. Edit sensitive fields and enable "Track Field History"\n5. Set up custom reports for field history\n6. Schedule regular field history reviews',
+    references: [
+      'Field History Tracking Guide',
+      'Data Change Monitoring',
+      'Compliance Audit Trails'
+    ]
+  },
+  {
+    id: 'monitor-3',
+    section: 'Monitoring & Compliance',
+    subsection: 'Security Monitoring',
+    title: 'Set up login forensics monitoring and alerting',
+    priority: 'high',
+    instructions: '1. Navigate to Setup → Security → Login Forensics\n2. Review login anomaly patterns\n3. Set up Event Monitoring (if available)\n4. Configure alerts for suspicious login patterns\n5. Create automated reports for security team\n6. Establish incident response procedures',
+    references: [
+      'Login Forensics Configuration',
+      'Event Monitoring Setup Guide',
+      'Security Incident Response Plan'
+    ]
+  },
+  {
+    id: 'monitor-4',
+    section: 'Monitoring & Compliance',
+    subsection: 'Security Monitoring',
+    title: 'Implement real-time security dashboards for administrators',
+    priority: 'medium',
+    instructions: '1. Create custom reports for security metrics\n2. Build dashboard showing login activities\n3. Add components for failed login attempts\n4. Include data export monitoring\n5. Set up automatic dashboard refresh\n6. Configure dashboard sharing with security team',
+    references: [
+      'Security Dashboard Design',
+      'Real-time Monitoring Best Practices'
+    ]
+  },
+  {
+    id: 'monitor-5',
+    section: 'Monitoring & Compliance',
+    subsection: 'Compliance Reporting',
+    title: 'Configure automated compliance reports (SOX, GDPR, HIPAA)',
+    priority: 'critical',
+    instructions: '1. Identify compliance requirements for your organization\n2. Create custom report types for compliance data\n3. Build reports for data access patterns\n4. Set up automated report scheduling\n5. Configure secure report delivery\n6. Establish compliance review procedures',
+    references: [
+      'GDPR Compliance Guide',
+      'SOX Control Documentation',
+      'HIPAA Security Requirements'
+    ]
+  },
+  // Section 7: Mobile & External Access
+  {
+    id: 'mobile-1',
+    section: 'Mobile & External Access',
+    subsection: 'Salesforce Mobile App',
+    title: 'Configure mobile app security policies and restrictions',
+    priority: 'high',
+    instructions: '1. Go to Setup → Mobile Apps → Salesforce\n2. Configure mobile session timeout\n3. Enable mobile app PIN requirements\n4. Set up mobile app access restrictions\n5. Configure offline data encryption\n6. Test mobile security settings',
+    references: [
+      'Salesforce Mobile Security Guide',
+      'Mobile App Configuration Best Practices'
+    ]
+  },
+  {
+    id: 'mobile-2',
+    section: 'Mobile & External Access',
+    subsection: 'Connected Apps',
+    title: 'Secure all connected app configurations with proper OAuth scopes',
+    priority: 'critical',
+    instructions: '1. Navigate to Setup → Apps → App Manager\n2. Review all connected apps\n3. Audit OAuth scopes for each app\n4. Remove unnecessary permissions\n5. Enable IP restrictions where possible\n6. Set up connected app monitoring',
+    references: [
+      'Connected Apps Security Guide',
+      'OAuth Best Practices',
+      'API Security Standards'
+    ]
+  },
+  {
+    id: 'mobile-3',
+    section: 'Mobile & External Access',
+    subsection: 'External Sites',
+    title: 'Implement security controls for Sites and Experience Cloud',
+    priority: 'high',
+    instructions: '1. Go to Setup → Sites or Digital Experiences\n2. Configure site security settings\n3. Enable HTTPS enforcement\n4. Set up proper authentication methods\n5. Configure session security\n6. Review guest user permissions',
+    references: [
+      'Sites Security Configuration',
+      'Experience Cloud Security Guide'
+    ]
+  },
+  // Section 8: Third-Party Apps & AppExchange
+  {
+    id: 'appex-1',
+    section: 'Third-Party Apps & AppExchange',
+    subsection: 'Package Security',
+    title: 'Establish AppExchange package security review process',
+    priority: 'critical',
+    instructions: '1. Create package evaluation criteria\n2. Review package permissions and data access\n3. Test packages in sandbox environment\n4. Validate vendor security credentials\n5. Document package approval process\n6. Set up regular package security reviews',
+    references: [
+      'AppExchange Security Guide',
+      'Third-Party Risk Assessment',
+      'Package Installation Best Practices'
+    ]
+  },
+  {
+    id: 'appex-2',
+    section: 'Third-Party Apps & AppExchange',
+    subsection: 'Vendor Management',
+    title: 'Implement vendor security assessment procedures',
+    priority: 'high',
+    instructions: '1. Create vendor security questionnaire\n2. Require security certifications from vendors\n3. Review vendor data handling practices\n4. Establish vendor access monitoring\n5. Set up vendor security incident procedures\n6. Schedule regular vendor security reviews',
+    references: [
+      'Vendor Security Assessment Guide',
+      'Third-Party Risk Management',
+      'Vendor Compliance Requirements'
+    ]
   }
 ];
 
