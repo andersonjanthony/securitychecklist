@@ -189,9 +189,47 @@ export const checklistData: ChecklistItemData[] = [
   {
     id: 'perm-5',
     section: 'User Permissions & Profiles',
+    instructions: '1. Create data classification schema (Public, Internal, Confidential, Restricted)\n2. Classify all data fields according to sensitivity levels\n3. Implement field-level security based on classification\n4. Create custom fields to track data classification if needed\n5. Develop access control matrix mapping roles to data classifications\n6. Train users on data classification requirements\n7. Implement regular data classification reviews\n8. Create compliance reports for data protection',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.admin_fls.htm',
+      'https://www.salesforce.com/resources/articles/data-governance/'
+    ]
+  },
+  {
+    id: 'perm-5',
+    section: 'User Permissions & Profiles',
     subsection: 'Role Hierarchy',
     title: 'Design and implement proper role hierarchy structure',
     priority: 'high',
+    instructions: '1. Map organizational structure to Salesforce role hierarchy\n2. Navigate to Setup → Roles → Role Hierarchy\n3. Create roles that reflect actual business reporting structure\n4. Ensure proper data access inheritance through hierarchy\n5. Avoid creating overly complex or deep hierarchies\n6. Test data visibility with users at different hierarchy levels\n7. Document role hierarchy design decisions\n8. Regular review and updates to reflect org changes',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.admin_roles.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/security_data_access.htm'
+    ]
+  },
+  {
+    id: 'perm-6',
+    section: 'User Permissions & Profiles',
+    subsection: 'Permission Sets',
+    title: 'Use permission sets instead of modifying standard profiles',
+    priority: 'medium',
+    instructions: '1. Create role-specific permission sets for additional access needs\n2. Keep standard profiles as minimal baseline permissions\n3. Use permission sets for temporary or project-based access\n4. Implement permission set assignment review process\n5. Document business justification for each permission set\n6. Regular audit of permission set assignments\n7. Remove permission sets when no longer needed\n8. Train administrators on permission set best practices',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.perm_sets_overview.htm',
+      'https://trailhead.salesforce.com/content/learn/modules/data_security/data_security_perms'
+    ]
+  },
+  {
+    id: 'perm-7',
+    section: 'User Permissions & Profiles',
+    subsection: 'Sharing Settings',
+    title: 'Configure organization-wide defaults to most restrictive settings',
+    priority: 'critical',
+    instructions: '1. Navigate to Setup → Security → Sharing Settings\n2. Set organization-wide defaults to Private for sensitive objects\n3. Use Public Read Only only when business justification exists\n4. Never use Public Read/Write unless absolutely necessary\n5. Document rationale for each sharing setting\n6. Test data access with users in different roles\n7. Implement sharing rules only when OWD is too restrictive\n8. Regular review of sharing settings and their business need',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.security_owd.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/security_sharing_owd.htm'
+    ]
     instructions: '1. Map organizational structure to Salesforce role hierarchy\n2. Navigate to Setup → Roles → Role Hierarchy\n3. Create roles that reflect actual business reporting structure\n4. Ensure proper data access inheritance through hierarchy\n5. Avoid creating overly complex or deep hierarchies\n6. Test data visibility with users at different hierarchy levels\n7. Document role hierarchy design decisions\n8. Regular review and updates to reflect org changes',
     references: [
       'https://help.salesforce.com/s/articleView?id=sf.admin_roles.htm',
@@ -337,7 +375,7 @@ export const checklistData: ChecklistItemData[] = [
   },
   {
     id: 'network-4',
-    session: 'Network Security & Access',
+    section: 'Network Security & Access',
     subsection: 'Mobile Security',
     title: 'Configure mobile device security policies',
     priority: 'medium',

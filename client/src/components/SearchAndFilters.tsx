@@ -10,6 +10,8 @@ interface SearchAndFiltersProps {
   onClearProgress: () => void;
   onClearExclusions: () => void;
   onExportPDF: () => void;
+  onExpandAll: () => void;
+  onCollapseAll: () => void;
 }
 
 export const SearchAndFilters = ({
@@ -19,7 +21,9 @@ export const SearchAndFilters = ({
   onFilterChange,
   onClearProgress,
   onClearExclusions,
-  onExportPDF
+  onExportPDF,
+  onExpandAll,
+  onCollapseAll
 }: SearchAndFiltersProps) => {
   const handleClearProgress = () => {
     if (confirm('Are you sure you want to clear all progress? This action cannot be undone.')) {

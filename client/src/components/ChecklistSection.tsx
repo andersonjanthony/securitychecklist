@@ -19,6 +19,8 @@ interface ChecklistSectionProps {
   isItemExcluded: (itemId: string) => boolean;
   searchQuery?: string;
   filter?: 'all' | 'complete' | 'incomplete';
+  isExpanded: boolean;
+  onToggleExpanded: () => void;
 }
 
 export const ChecklistSection = ({ 
@@ -33,14 +35,11 @@ export const ChecklistSection = ({
   isSectionExcluded,
   isItemExcluded,
   searchQuery = '',
-  filter = 'all'
+  filter = 'all',
+  isExpanded,
+  onToggleExpanded
 }: ChecklistSectionProps) => {
-  const [isExpanded, setIsExpanded] = useState(sectionIndex === 0); // First section expanded by default
   const subsections = getSubsections(sectionName);
-
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
-  };
 
   const shouldShowItem = (itemTitle: string, itemId: string) => {
     // Search filter
@@ -63,7 +62,7 @@ export const ChecklistSection = ({
     )}>
       <div 
         className="p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
-        onClick={toggleExpanded}
+        onClick={onToggleExpanded}
       >
         <div className="flex items-center justify-between">
           <h2 className={cn(

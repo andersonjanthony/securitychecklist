@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChecklistHeader } from './ChecklistHeader';
 import { SearchAndFilters } from './SearchAndFilters';
 import { ChecklistSection } from './ChecklistSection';
 import { InstructionPanel } from './InstructionPanel';
 import { useChecklistState } from '@/hooks/useChecklistState';
 import { useExclusionState } from '@/hooks/useExclusionState';
-import { getAllSections, ChecklistItemData } from '@/lib/checklist-data';
+import { getAllSections, getSectionItems, ChecklistItemData } from '@/lib/checklist-data';
 import { exportToPDF } from '@/lib/pdf-export';
 import { InfoIcon } from 'lucide-react';
 
@@ -14,6 +14,7 @@ export const ChecklistApp = () => {
   const [filter, setFilter] = useState<'all' | 'complete' | 'incomplete'>('all');
   const [selectedItem, setSelectedItem] = useState<ChecklistItemData | null>(null);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set([sections[0]])); // First section expanded by default
   
   const { checklistState, toggleItem, clearAllProgress, getProgress, getSectionProgress } = useChecklistState();
   const { 
@@ -27,6 +28,44 @@ export const ChecklistApp = () => {
 
   const progress = getProgress({ excludedSections: exclusionState.excludedSections, excludedItems: exclusionState.excludedItems });
   const sections = getAllSections();
+
+  // Auto-expand sections when searching
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const sectionsWithMatches = new Set<string>();
+      sections.forEach(section => {
+        const sectionItems = getSectionItems(section);
+        const hasMatch = sectionItems.some(item => 
+          item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.subsection.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        if (hasMatch) {
+          sectionsWithMatches.add(section);
+        }
+      });
+      setExpandedSections(sectionsWithMatches);
+    }
+  }, [searchQuery, sections]);
+
+  const toggleSection = (sectionName: string) => {
+    setExpandedSections(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(sectionName)) {
+        newSet.delete(sectionName);
+      } else {
+        newSet.add(sectionName);
+      }
+      return newSet;
+    });
+  };
+
+  const expandAllSections = () => {
+    setExpandedSections(new Set(sections));
+  };
+
+  const collapseAllSections = () => {
+    setExpandedSections(new Set());
+  };
 
   const handleExportPDF = () => {
     exportToPDF(checklistState);
@@ -51,9 +90,9 @@ export const ChecklistApp = () => {
       />
 
       <main className="pt-20 pb-8">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
           {/* Mobile Progress Card */}
-          <div className="sm:hidden mb-6 bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <div className="sm:hidden bg-white rounded-lg shadow-sm p-4 border border-gray-200">
             <div className="flex items-center justify-between">
               <div className="text-lg font-semibold text-sf-dark-blue">
                 Progress: {progress.percentage}%
@@ -72,12 +111,14 @@ export const ChecklistApp = () => {
             onClearProgress={clearAllProgress}
             onClearExclusions={clearAllExclusions}
             onExportPDF={handleExportPDF}
+            onExpandAll={expandAllSections}
+            onCollapseAll={collapseAllSections}
           />
 
           {/* Introduction Card */}
-          <div className="bg-sf-light-blue border border-sf-blue rounded-lg p-6 mb-6">
+          <div className="bg-sf-light-blue border border-sf-blue rounded-lg p-4 sm:p-6">
             <div className="flex items-start space-x-3">
-              <InfoIcon className="text-sf-blue text-xl mt-1 w-5 h-5" />
+              <InfoIcon className="text-sf-blue text-xl mt-1 w-5 h-5 flex-shrink-0" />
               <div>
                 <h3 className="font-semibold text-sf-dark-blue mb-2">Important Information</h3>
                 <p className="text-gray-700 text-sm leading-relaxed">
@@ -91,7 +132,7 @@ export const ChecklistApp = () => {
           </div>
 
           {/* Checklist Sections */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {sections.map((section, index) => (
               <ChecklistSection
                 key={section}
@@ -107,6 +148,8 @@ export const ChecklistApp = () => {
                 isItemExcluded={isItemExcluded}
                 searchQuery={searchQuery}
                 filter={filter}
+                isExpanded={expandedSections.has(section)}
+                onToggleExpanded={() => toggleSection(section)}
               />
             ))}
           </div>
