@@ -80,7 +80,7 @@ export const ChecklistSection = ({
 
             return (
               <div 
-                key={subsection} 
+                key={`${sectionName}-${subsection}`} 
                 className={cn(
                   "p-4",
                   index < subsections.length - 1 && "border-b border-gray-100"

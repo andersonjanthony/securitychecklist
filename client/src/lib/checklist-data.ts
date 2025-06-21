@@ -570,6 +570,147 @@ export const checklistData: ChecklistItemData[] = [
     subsection: 'HTTPS & Certificates',
     title: 'Regular SSL/TLS configuration security assessments',
     priority: 'low'
+  },
+  // Section 5: Application Security & Code Protection
+  {
+    id: 'app-1',
+    section: 'Application Security & Code Protection',
+    subsection: 'Apex Code Security',
+    title: 'Review all custom Apex code for SOQL injection vulnerabilities',
+    priority: 'critical'
+  },
+  {
+    id: 'app-2',
+    section: 'Application Security & Code Protection',
+    subsection: 'Apex Code Security',
+    title: 'Implement proper input validation and sanitization in Apex classes',
+    priority: 'critical'
+  },
+  {
+    id: 'app-3',
+    section: 'Application Security & Code Protection',
+    subsection: 'Apex Code Security',
+    title: 'Use "with sharing" keyword in all user-facing Apex classes',
+    priority: 'high'
+  },
+  {
+    id: 'app-4',
+    section: 'Application Security & Code Protection',
+    subsection: 'Apex Code Security',
+    title: 'Enable security scanning for all custom code deployments',
+    priority: 'high'
+  },
+  {
+    id: 'app-5',
+    section: 'Application Security & Code Protection',
+    subsection: 'Apex Code Security',
+    title: 'Regular code reviews focusing on security best practices',
+    priority: 'medium'
+  },
+  {
+    id: 'app-6',
+    section: 'Application Security & Code Protection',
+    subsection: 'Lightning Components',
+    title: 'Enable Lightning Locker Service for all Lightning components',
+    priority: 'high'
+  },
+  {
+    id: 'app-7',
+    section: 'Application Security & Code Protection',
+    subsection: 'Lightning Components',
+    title: 'Validate all user inputs in Lightning components (XSS prevention)',
+    priority: 'critical'
+  },
+  {
+    id: 'app-8',
+    section: 'Application Security & Code Protection',
+    subsection: 'Lightning Components',
+    title: 'Use Lightning Data Service instead of direct SOQL when possible',
+    priority: 'medium'
+  },
+  {
+    id: 'app-9',
+    section: 'Application Security & Code Protection',
+    subsection: 'Lightning Components',
+    title: 'Implement proper error handling without exposing sensitive data',
+    priority: 'medium'
+  },
+  {
+    id: 'app-10',
+    section: 'Application Security & Code Protection',
+    subsection: 'Lightning Components',
+    title: 'Regular security testing of custom Lightning components',
+    priority: 'low'
+  },
+  {
+    id: 'app-11',
+    section: 'Application Security & Code Protection',
+    subsection: 'Integration Security',
+    title: 'Use named credentials for all external API integrations',
+    priority: 'critical'
+  },
+  {
+    id: 'app-12',
+    section: 'Application Security & Code Protection',
+    subsection: 'Integration Security',
+    title: 'Implement OAuth 2.0 for external system authentication',
+    priority: 'high'
+  },
+  {
+    id: 'app-13',
+    section: 'Application Security & Code Protection',
+    subsection: 'Integration Security',
+    title: 'Validate and sanitize all data from external systems',
+    priority: 'high'
+  },
+  {
+    id: 'app-14',
+    section: 'Application Security & Code Protection',
+    subsection: 'Integration Security',
+    title: 'Monitor and log all integration activities',
+    priority: 'medium'
+  },
+  {
+    id: 'app-15',
+    section: 'Application Security & Code Protection',
+    subsection: 'Integration Security',
+    title: 'Regular security assessments of integration endpoints',
+    priority: 'medium'
+  },
+  {
+    id: 'app-16',
+    section: 'Application Security & Code Protection',
+    subsection: 'Metadata Security',
+    title: 'Restrict metadata API access to authorized administrators only',
+    priority: 'critical'
+  },
+  {
+    id: 'app-17',
+    section: 'Application Security & Code Protection',
+    subsection: 'Metadata Security',
+    title: 'Enable change set deployment restrictions and approvals',
+    priority: 'high'
+  },
+  {
+    id: 'app-18',
+    section: 'Application Security & Code Protection',
+    subsection: 'Metadata Security',
+    title: 'Implement version control for all metadata changes',
+    priority: 'medium'
+  },
+  {
+    id: 'app-19',
+    section: 'Application Security & Code Protection',
+    subsection: 'Metadata Security',
+    title: 'Regular backup of critical metadata configurations',
+    priority: 'medium'
+  },
+  {
+    id: 'app-20',
+    section: 'Application Security & Code Protection',
+    subsection: 'Metadata Security',
+    title: 'Monitor and audit all metadata deployments',
+    priority: 'low'
   }
 ];
 
