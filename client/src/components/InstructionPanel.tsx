@@ -59,15 +59,65 @@ export const InstructionPanel = ({ item, isOpen, onClose }: InstructionPanelProp
             </div>
 
             <div>
-              <h4 className="text-md font-semibold text-sf-dark-blue mb-3">Step-by-Step Instructions</h4>
-              <div className="bg-gray-50 rounded-lg p-4">
+              <h4 className="text-md font-semibold text-sf-dark-blue mb-3">Step-by-Step Implementation Guide</h4>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 {item.instructions ? (
-                  <div className="space-y-2">
-                    {item.instructions.split('\n').map((step, index) => (
-                      <div key={index} className="flex items-start space-x-2">
-                        <span className="text-sm text-gray-700 leading-relaxed">{step}</span>
-                      </div>
-                    ))}
+                  <div className="prose prose-sm max-w-none">
+                    {item.instructions.split('\n').map((line, index) => {
+                      if (line.trim() === '') return <br key={index} />;
+                      
+                      // Handle numbered steps
+                      if (/^\d+\./.test(line.trim())) {
+                        return (
+                          <div key={index} className="mb-4 p-3 bg-white border-l-4 border-blue-500 rounded-r shadow-sm">
+                            <p className="font-semibold text-blue-900 mb-2 flex items-center">
+                              <span className="inline-block w-6 h-6 bg-blue-500 text-white rounded-full text-xs font-bold text-center leading-6 mr-3">
+                                {line.trim().match(/^(\d+)\./)?.[1]}
+                              </span>
+                              {line.trim().replace(/^\d+\.\s*/, '')}
+                            </p>
+                          </div>
+                        );
+                      }
+                      
+                      // Handle bullet points
+                      if (line.trim().startsWith('•') || line.trim().startsWith('-')) {
+                        return (
+                          <div key={index} className="mb-2 ml-4">
+                            <p className="text-blue-800 flex items-start">
+                              <span className="inline-block w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                              {line.trim().substring(1).trim()}
+                            </p>
+                          </div>
+                        );
+                      }
+                      
+                      // Handle sub-bullet points (more indented)
+                      if (line.startsWith('  ') && (line.trim().startsWith('•') || line.trim().startsWith('-'))) {
+                        return (
+                          <div key={index} className="mb-1 ml-8">
+                            <p className="text-blue-700 text-sm flex items-start">
+                              <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
+                              {line.trim().substring(1).trim()}
+                            </p>
+                          </div>
+                        );
+                      }
+                      
+                      // Handle section headers (lines with colons)
+                      if (line.includes(':') && !line.trim().startsWith('•') && !line.trim().startsWith('-') && !line.trim().startsWith('http')) {
+                        return (
+                          <div key={index} className="mb-3 mt-4">
+                            <p className="font-medium text-blue-900 border-b border-blue-300 pb-1">{line.trim()}</p>
+                          </div>
+                        );
+                      }
+                      
+                      // Regular text
+                      return (
+                        <p key={index} className="text-blue-800 mb-2 leading-relaxed">{line}</p>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-8 text-gray-500">
@@ -84,9 +134,16 @@ export const InstructionPanel = ({ item, isOpen, onClose }: InstructionPanelProp
                 <h4 className="text-md font-semibold text-sf-dark-blue mb-3">References & Documentation</h4>
                 <div className="space-y-2">
                   {item.references.map((reference, index) => (
-                    <div key={index} className="flex items-center space-x-2 p-3 bg-sf-light-blue rounded-lg">
-                      <ExternalLink className="w-4 h-4 text-sf-blue flex-shrink-0" />
-                      <span className="text-sm text-gray-700">{reference}</span>
+                    <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 border border-gray-200 rounded-lg hover:bg-gray-100 transition-colors">
+                      <ExternalLink className="h-4 w-4 text-gray-500 flex-shrink-0" />
+                      <a 
+                        href={reference} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline text-sm break-all"
+                      >
+                        {reference}
+                      </a>
                     </div>
                   ))}
                 </div>
