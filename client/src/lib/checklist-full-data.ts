@@ -231,11 +231,6 @@ export const checklistData: ChecklistItemData[] = [
       'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/security_sharing_owd.htm'
     ]
   },
-    references: [
-      'https://help.salesforce.com/s/articleView?id=sf.admin_roles.htm',
-      'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/security_data_access.htm'
-    ]
-  },
   {
     id: 'perm-6',
     section: 'User Permissions & Profiles',
@@ -585,6 +580,92 @@ export const checklistData: ChecklistItemData[] = [
     references: [
       'https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_authentication.htm',
       'https://help.salesforce.com/s/articleView?id=sf.data_integration_security.htm'
+    ]
+  },
+
+  // Additional comprehensive security items to reach 100+ total
+  {
+    id: 'data-7',
+    section: 'Data Security & Encryption',
+    subsection: 'Advanced Security',
+    title: 'Implement Shield Platform Encryption for maximum data protection',
+    priority: 'critical',
+    instructions: '1. Purchase Shield Platform Encryption license\n2. Generate or upload encryption keys\n3. Enable encryption for sensitive fields\n4. Test encrypted field functionality\n5. Monitor encryption performance\n6. Implement key rotation schedule\n7. Train developers on encrypted field limitations\n8. Document encryption policies',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.security_pe_overview.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.platform_encryption.meta/platform_encryption/'
+    ]
+  },
+  {
+    id: 'data-8',
+    section: 'Data Security & Encryption',
+    subsection: 'Data Governance',
+    title: 'Configure Event Monitoring for comprehensive audit trails',
+    priority: 'high',
+    instructions: '1. Enable Event Monitoring in your org\n2. Configure event types to monitor\n3. Set up automated event log downloads\n4. Implement event analysis workflows\n5. Create security dashboards\n6. Set up alerting for suspicious activities\n7. Train security team on event analysis\n8. Regular review of event patterns',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.admin_monitorevents.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/event_monitoring.htm'
+    ]
+  },
+  {
+    id: 'net-5',
+    section: 'Network Security & Access',
+    subsection: 'Advanced Network Security',
+    title: 'Implement Certificate-based authentication for enhanced security',
+    priority: 'high',
+    instructions: '1. Generate or obtain SSL certificates\n2. Configure certificate-based authentication\n3. Set up certificate authority trust\n4. Test certificate authentication flows\n5. Implement certificate renewal procedures\n6. Monitor certificate expiration dates\n7. Train administrators on certificate management\n8. Document certificate policies',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.security_certificates.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/'
+    ]
+  },
+  {
+    id: 'app-6',
+    section: 'Application Security',
+    subsection: 'Advanced Application Security',
+    title: 'Implement Security Health Check and continuous monitoring',
+    priority: 'critical',
+    instructions: '1. Run Security Health Check assessment\n2. Review and address all identified risks\n3. Set up continuous security monitoring\n4. Implement automated security scanning\n5. Create security compliance dashboards\n6. Schedule regular security assessments\n7. Train team on security best practices\n8. Document security compliance procedures',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.admin_security_health_check.htm',
+      'https://trailhead.salesforce.com/content/learn/modules/security_health_check'
+    ]
+  },
+  {
+    id: 'monitor-6',
+    section: 'Monitoring & Auditing',
+    subsection: 'Advanced Monitoring',
+    title: 'Configure Real-Time Event Monitoring and Alerting',
+    priority: 'high',
+    instructions: '1. Set up real-time event streaming\n2. Configure event-driven alerts\n3. Implement automated incident response\n4. Create security operations dashboard\n5. Set up integration with SIEM systems\n6. Configure escalation procedures\n7. Train security operations team\n8. Test incident response procedures',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.streaming_intro.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.platform_events.meta/platform_events/'
+    ]
+  },
+  {
+    id: 'mobile-4',
+    section: 'Mobile & Remote Access',
+    subsection: 'Advanced Mobile Security',
+    title: 'Implement Mobile Application Management (MAM) policies',
+    priority: 'medium',
+    instructions: '1. Configure mobile app protection policies\n2. Set up app-level security controls\n3. Implement data loss prevention for mobile\n4. Configure conditional access policies\n5. Set up mobile threat detection\n6. Implement secure app distribution\n7. Train users on mobile security\n8. Monitor mobile app usage and security',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.mobile_security_overview.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.mobile_sdk.meta/mobile_sdk/'
+    ]
+  },
+  {
+    id: 'apps-4',
+    section: 'Third-party Apps & Integrations',
+    subsection: 'Advanced Integration Security',
+    title: 'Implement API Gateway and rate limiting for external integrations',
+    priority: 'high',
+    instructions: '1. Set up API Gateway for external integrations\n2. Configure rate limiting policies\n3. Implement API authentication and authorization\n4. Set up API monitoring and analytics\n5. Configure API threat protection\n6. Implement API versioning strategy\n7. Document API security standards\n8. Regular API security assessments',
+    references: [
+      'https://help.salesforce.com/s/articleView?id=sf.api_rest_rate_limits.htm',
+      'https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/'
     ]
   }
 ];
