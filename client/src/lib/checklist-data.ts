@@ -4,13 +4,14 @@ export interface ChecklistItemData {
   subsection: string;
   title: string;
   priority: 'critical' | 'high' | 'medium' | 'low';
-  instructions?: string;
-  references?: string[];
+  instructions: string;
+  references: string[];
 }
 
-// Import the comprehensive data
+// Import the comprehensive data from checklist-full-data
 import { checklistData as fullChecklistData } from './checklist-full-data';
 
+// Export the full data directly
 export const checklistData: ChecklistItemData[] = fullChecklistData;
 
 export const getSectionItems = (sectionName: string) => {

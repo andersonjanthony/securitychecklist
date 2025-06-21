@@ -47,7 +47,7 @@ export const InstructionPanel = ({ item, isOpen, onClose }: InstructionPanelProp
           </Button>
         </div>
 
-        <ScrollArea className="flex-1 p-6">
+        <ScrollArea className="flex-1 p-6 max-h-[60vh]">
           <div className="space-y-6">
             <div>
               <div className="flex items-start space-x-3 mb-4">
