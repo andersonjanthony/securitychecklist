@@ -1,4 +1,4 @@
-import { Search, RotateCcw, Eye } from 'lucide-react';
+import { Search, RotateCcw, Eye, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 

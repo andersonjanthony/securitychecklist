@@ -27,14 +27,14 @@ export const InstructionPanel = ({ item, isOpen, onClose }: InstructionPanelProp
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] flex flex-col">
-        <div className="flex items-center justify-between p-6 border-b">
-          <div className="flex items-center space-x-3">
-            <BookOpen className="w-6 h-6 text-sf-blue" />
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[95vh] sm:max-h-[90vh] flex flex-col">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-sf-blue flex-shrink-0" />
             <div>
-              <h2 className="text-xl font-semibold text-sf-dark-blue">Implementation Guide</h2>
-              <p className="text-sm text-gray-600">{item.section} → {item.subsection}</p>
+              <h2 className="text-lg sm:text-xl font-semibold text-sf-dark-blue">Implementation Guide</h2>
+              <p className="text-xs sm:text-sm text-gray-600">{item.section} → {item.subsection}</p>
             </div>
           </div>
           <Button
@@ -47,7 +47,7 @@ export const InstructionPanel = ({ item, isOpen, onClose }: InstructionPanelProp
           </Button>
         </div>
 
-        <ScrollArea className="flex-1 p-6 max-h-[60vh]">
+        <ScrollArea className="flex-1 p-4 sm:p-6 max-h-[70vh] sm:max-h-[60vh]">
           <div className="space-y-6">
             <div>
               <div className="flex items-start space-x-3 mb-4">
@@ -160,8 +160,8 @@ export const InstructionPanel = ({ item, isOpen, onClose }: InstructionPanelProp
           </div>
         </ScrollArea>
 
-        <div className="border-t p-4 flex justify-end">
-          <Button onClick={onClose} className="bg-sf-blue hover:bg-sf-dark-blue">
+        <div className="border-t p-3 sm:p-4 flex justify-end">
+          <Button onClick={onClose} className="bg-sf-blue hover:bg-sf-dark-blue text-sm sm:text-base">
             Close Guide
           </Button>
         </div>

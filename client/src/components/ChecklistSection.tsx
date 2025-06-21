@@ -66,12 +66,12 @@ export const ChecklistSection = ({
       >
         <div className="flex items-center justify-between">
           <h2 className={cn(
-            "text-xl font-semibold",
+            "text-lg sm:text-xl font-semibold",
             isSectionExcluded ? "text-gray-500 line-through" : "text-sf-dark-blue"
           )}>
             {sectionIndex + 1}. {sectionName}
           </h2>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <Button
               variant="ghost"
               size="sm"
@@ -87,7 +87,7 @@ export const ChecklistSection = ({
             >
               {isSectionExcluded ? <Plus className="w-4 h-4" /> : <MinusCircle className="w-4 h-4" />}
             </Button>
-            <span className="text-sm text-gray-600">
+            <span className="text-xs sm:text-sm text-gray-600">
               {sectionProgress.completed}/{sectionProgress.total} items
             </span>
             {isExpanded ? (
@@ -113,12 +113,12 @@ export const ChecklistSection = ({
               <div 
                 key={`${sectionName}-${subsection}`} 
                 className={cn(
-                  "p-4",
+                  "p-3 sm:p-4",
                   index < subsections.length - 1 && "border-b border-gray-100"
                 )}
               >
-                <h3 className="text-lg font-medium text-sf-blue mb-4">{subsection}</h3>
-                <div className="space-y-3">
+                <h3 className="text-base sm:text-lg font-medium text-sf-blue mb-3 sm:mb-4">{subsection}</h3>
+                <div className="space-y-2 sm:space-y-3">
                   {visibleItems.map(item => (
                     <ChecklistItem
                       key={item.id}

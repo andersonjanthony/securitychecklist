@@ -53,7 +53,7 @@ export const ChecklistItem = ({
 
   return (
     <div className={cn(
-      "flex items-start space-x-3 p-3 rounded-lg transition-colors",
+      "flex items-start space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg transition-colors",
       isExcluded ? "bg-gray-100 opacity-60" : "hover:bg-gray-50",
       !isExcluded && item.priority === 'critical' && "bg-red-50 border-l-4 border-red-600",
       !isExcluded && item.priority === 'high' && "bg-orange-50 border-l-4 border-orange-500"
@@ -68,13 +68,13 @@ export const ChecklistItem = ({
       <label 
         htmlFor={item.id} 
         className={cn(
-          "flex-1 text-sm leading-relaxed cursor-pointer",
+          "flex-1 text-sm sm:text-base leading-relaxed cursor-pointer",
           isExcluded ? "text-gray-500 line-through" : "text-gray-800"
         )}
       >
         {!isExcluded && (item.priority === 'critical' || item.priority === 'high') && (
           <span className={cn(
-            "text-xs px-2 py-1 rounded mr-2 font-medium",
+            "text-xs px-1.5 py-0.5 sm:px-2 sm:py-1 rounded mr-1 sm:mr-2 font-medium",
             priorityColors[item.priority]
           )}>
             {priorityLabels[item.priority]}
@@ -83,15 +83,15 @@ export const ChecklistItem = ({
         {item.title}
       </label>
       
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center space-x-1 flex-shrink-0">
         <Button
           variant="ghost"
           size="sm"
           onClick={handleInstructionsClick}
-          className="h-8 w-8 p-0 hover:bg-sf-light-blue"
+          className="h-6 w-6 sm:h-8 sm:w-8 p-0 hover:bg-sf-light-blue"
           title="View instructions"
         >
-          <Info className="w-4 h-4 text-sf-blue" />
+          <Info className="w-3 h-3 sm:w-4 sm:h-4 text-sf-blue" />
         </Button>
         
         <Button
@@ -99,12 +99,12 @@ export const ChecklistItem = ({
           size="sm"
           onClick={handleExclusionClick}
           className={cn(
-            "h-8 w-8 p-0",
+            "h-6 w-6 sm:h-8 sm:w-8 p-0",
             isExcluded ? "hover:bg-blue-100 text-blue-600" : "hover:bg-orange-100 text-orange-600"
           )}
           title={isExcluded ? "Include item" : "Exclude item"}
         >
-          {isExcluded ? <Plus className="w-4 h-4" /> : <MinusCircle className="w-4 h-4" />}
+          {isExcluded ? <Plus className="w-3 h-3 sm:w-4 sm:h-4" /> : <MinusCircle className="w-3 h-3 sm:w-4 sm:h-4" />}
         </Button>
       </div>
     </div>

@@ -14,7 +14,7 @@ export const ChecklistApp = () => {
   const [filter, setFilter] = useState<'all' | 'complete' | 'incomplete'>('all');
   const [selectedItem, setSelectedItem] = useState<ChecklistItemData | null>(null);
   const [showInstructions, setShowInstructions] = useState(false);
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set([sections[0]])); // First section expanded by default
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
   
   const { checklistState, toggleItem, clearAllProgress, getProgress, getSectionProgress } = useChecklistState();
   const { 
@@ -29,7 +29,7 @@ export const ChecklistApp = () => {
   const progress = getProgress({ excludedSections: exclusionState.excludedSections, excludedItems: exclusionState.excludedItems });
   const sections = getAllSections();
 
-  // Auto-expand sections when searching
+  // Auto-expand sections when searching and set default expansion
   useEffect(() => {
     if (searchQuery.trim()) {
       const sectionsWithMatches = new Set<string>();
@@ -44,8 +44,11 @@ export const ChecklistApp = () => {
         }
       });
       setExpandedSections(sectionsWithMatches);
+    } else if (expandedSections.size === 0 && sections.length > 0) {
+      // Default to first section expanded if none are expanded
+      setExpandedSections(new Set([sections[0]]));
     }
-  }, [searchQuery, sections]);
+  }, [searchQuery, sections, expandedSections.size]);
 
   const toggleSection = (sectionName: string) => {
     setExpandedSections(prev => {

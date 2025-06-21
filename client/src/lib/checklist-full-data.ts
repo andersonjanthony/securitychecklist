@@ -230,7 +230,7 @@ export const checklistData: ChecklistItemData[] = [
       'https://help.salesforce.com/s/articleView?id=sf.security_owd.htm',
       'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/security_sharing_owd.htm'
     ]
-    instructions: '1. Map organizational structure to Salesforce role hierarchy\n2. Navigate to Setup → Roles → Role Hierarchy\n3. Create roles that reflect actual business reporting structure\n4. Ensure proper data access inheritance through hierarchy\n5. Avoid creating overly complex or deep hierarchies\n6. Test data visibility with users at different hierarchy levels\n7. Document role hierarchy design decisions\n8. Regular review and updates to reflect org changes',
+  },
     references: [
       'https://help.salesforce.com/s/articleView?id=sf.admin_roles.htm',
       'https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/security_data_access.htm'
