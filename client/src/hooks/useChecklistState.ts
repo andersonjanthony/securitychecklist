@@ -43,26 +43,36 @@ export const useChecklistState = () => {
     setChecklistState({});
   };
 
-  const getProgress = () => {
-    const totalItems = checklistData.length;
-    const completedItems = Object.values(checklistState).filter(Boolean).length;
-    const percentage = Math.round((completedItems / totalItems) * 100);
+  const getProgress = (exclusionState?: { excludedSections: Set<string>; excludedItems: Set<string> }) => {
+    const allItems = checklistData;
     
+    // Filter out excluded items and items in excluded sections
+    const activeItems = exclusionState ? 
+      allItems.filter(item => 
+        !exclusionState.excludedItems.has(item.id) && 
+        !exclusionState.excludedSections.has(item.section)
+      ) : allItems;
+    
+    const total = activeItems.length;
+    const completed = activeItems.filter(item => checklistState[item.id]).length;
     return {
-      total: totalItems,
-      completed: completedItems,
-      percentage
+      total,
+      completed,
+      percentage: total > 0 ? Math.round((completed / total) * 100) : 0
     };
   };
 
-  const getSectionProgress = (sectionName: string) => {
+  const getSectionProgress = (sectionName: string, exclusionState?: { excludedSections: Set<string>; excludedItems: Set<string> }) => {
     const sectionItems = checklistData.filter(item => item.section === sectionName);
-    const completedItems = sectionItems.filter(item => checklistState[item.id]).length;
     
-    return {
-      total: sectionItems.length,
-      completed: completedItems
-    };
+    // Filter out excluded items if exclusion state is provided
+    const activeItems = exclusionState ? 
+      sectionItems.filter(item => !exclusionState.excludedItems.has(item.id)) : 
+      sectionItems;
+    
+    const total = activeItems.length;
+    const completed = activeItems.filter(item => checklistState[item.id]).length;
+    return { total, completed };
   };
 
   return {

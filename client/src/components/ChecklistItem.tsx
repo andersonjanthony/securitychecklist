@@ -2,7 +2,7 @@ import { ChecklistItemData } from '@/lib/checklist-data';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Info, EyeOff, Eye } from 'lucide-react';
+import { Info, MinusCircle, Plus } from 'lucide-react';
 
 interface ChecklistItemProps {
   item: ChecklistItemData;
@@ -100,11 +100,11 @@ export const ChecklistItem = ({
           onClick={handleExclusionClick}
           className={cn(
             "h-8 w-8 p-0",
-            isExcluded ? "hover:bg-green-100 text-green-600" : "hover:bg-red-100 text-red-600"
+            isExcluded ? "hover:bg-blue-100 text-blue-600" : "hover:bg-orange-100 text-orange-600"
           )}
           title={isExcluded ? "Include item" : "Exclude item"}
         >
-          {isExcluded ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+          {isExcluded ? <Plus className="w-4 h-4" /> : <MinusCircle className="w-4 h-4" />}
         </Button>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, EyeOff, Eye } from 'lucide-react';
+import { ChevronDown, ChevronUp, MinusCircle, Plus } from 'lucide-react';
 import { ChecklistItem } from './ChecklistItem';
 import { getSubsections, getSubsectionItems, ChecklistItemData } from '@/lib/checklist-data';
 import { ChecklistState } from '@/hooks/useChecklistState';
@@ -82,11 +82,11 @@ export const ChecklistSection = ({
               }}
               className={cn(
                 "h-8 w-8 p-0",
-                isSectionExcluded ? "hover:bg-green-100 text-green-600" : "hover:bg-red-100 text-red-600"
+                isSectionExcluded ? "hover:bg-blue-100 text-blue-600" : "hover:bg-orange-100 text-orange-600"
               )}
               title={isSectionExcluded ? "Include section" : "Exclude section"}
             >
-              {isSectionExcluded ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+              {isSectionExcluded ? <Plus className="w-4 h-4" /> : <MinusCircle className="w-4 h-4" />}
             </Button>
             <span className="text-sm text-gray-600">
               {sectionProgress.completed}/{sectionProgress.total} items

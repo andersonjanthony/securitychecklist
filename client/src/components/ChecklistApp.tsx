@@ -17,6 +17,7 @@ export const ChecklistApp = () => {
   
   const { checklistState, toggleItem, clearAllProgress, getProgress, getSectionProgress } = useChecklistState();
   const { 
+    exclusionState,
     toggleSectionExclusion, 
     toggleItemExclusion, 
     clearAllExclusions, 
@@ -24,8 +25,7 @@ export const ChecklistApp = () => {
     isItemExcluded 
   } = useExclusionState();
 
-  
-  const progress = getProgress();
+  const progress = getProgress({ excludedSections: exclusionState.excludedSections, excludedItems: exclusionState.excludedItems });
   const sections = getAllSections();
 
   const handleExportPDF = () => {
@@ -98,7 +98,7 @@ export const ChecklistApp = () => {
                 sectionName={section}
                 sectionIndex={index}
                 checklistState={checklistState}
-                sectionProgress={getSectionProgress(section)}
+                sectionProgress={getSectionProgress(section, { excludedSections: exclusionState.excludedSections, excludedItems: exclusionState.excludedItems })}
                 onToggleItem={toggleItem}
                 onShowInstructions={handleShowInstructions}
                 onToggleItemExclusion={toggleItemExclusion}
