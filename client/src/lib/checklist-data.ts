@@ -4,6 +4,8 @@ export interface ChecklistItemData {
   subsection: string;
   title: string;
   priority: 'critical' | 'high' | 'medium' | 'low';
+  instructions?: string;
+  references?: string[];
 }
 
 export const checklistData: ChecklistItemData[] = [
@@ -13,7 +15,13 @@ export const checklistData: ChecklistItemData[] = [
     section: 'User Authentication & Access Control',
     subsection: 'Multi-Factor Authentication (MFA)',
     title: 'Enable MFA for all administrator accounts without exception',
-    priority: 'critical'
+    priority: 'critical',
+    instructions: '1. Navigate to Setup → Security → Multi-Factor Authentication\n2. Enable "Require MFA for all system administrators"\n3. Go to User Management → Users\n4. For each admin user, edit their profile\n5. Check "Multi-Factor Authentication for User Interface Logins"\n6. Verify MFA is working by having each admin log out and back in',
+    references: [
+      'Salesforce Help: Multi-Factor Authentication',
+      'Trailhead: Multi-Factor Authentication Basics',
+      'Security Implementation Guide Chapter 3'
+    ]
   },
   {
     id: 'auth-2',

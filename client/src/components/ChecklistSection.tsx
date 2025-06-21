@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, EyeOff, Eye } from 'lucide-react';
 import { ChecklistItem } from './ChecklistItem';
-import { getSubsections, getSubsectionItems } from '@/lib/checklist-data';
+import { getSubsections, getSubsectionItems, ChecklistItemData } from '@/lib/checklist-data';
 import { ChecklistState } from '@/hooks/useChecklistState';
+import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface ChecklistSectionProps {
@@ -11,6 +12,11 @@ interface ChecklistSectionProps {
   checklistState: ChecklistState;
   sectionProgress: { total: number; completed: number };
   onToggleItem: (itemId: string) => void;
+  onShowInstructions: (item: ChecklistItemData) => void;
+  onToggleItemExclusion: (itemId: string) => void;
+  onToggleSectionExclusion: (sectionName: string) => void;
+  isSectionExcluded: boolean;
+  isItemExcluded: (itemId: string) => boolean;
   searchQuery?: string;
   filter?: 'all' | 'complete' | 'incomplete';
 }
@@ -21,6 +27,11 @@ export const ChecklistSection = ({
   checklistState, 
   sectionProgress,
   onToggleItem,
+  onShowInstructions,
+  onToggleItemExclusion,
+  onToggleSectionExclusion,
+  isSectionExcluded,
+  isItemExcluded,
   searchQuery = '',
   filter = 'all'
 }: ChecklistSectionProps) => {
@@ -46,16 +57,37 @@ export const ChecklistSection = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className={cn(
+      "bg-white rounded-lg shadow-sm border border-gray-200",
+      isSectionExcluded && "opacity-60 bg-gray-50"
+    )}>
       <div 
         className="p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors"
         onClick={toggleExpanded}
       >
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-sf-dark-blue">
+          <h2 className={cn(
+            "text-xl font-semibold",
+            isSectionExcluded ? "text-gray-500 line-through" : "text-sf-dark-blue"
+          )}>
             {sectionIndex + 1}. {sectionName}
           </h2>
           <div className="flex items-center space-x-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onToggleSectionExclusion(sectionName);
+              }}
+              className={cn(
+                "h-8 w-8 p-0",
+                isSectionExcluded ? "hover:bg-green-100 text-green-600" : "hover:bg-red-100 text-red-600"
+              )}
+              title={isSectionExcluded ? "Include section" : "Exclude section"}
+            >
+              {isSectionExcluded ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+            </Button>
             <span className="text-sm text-gray-600">
               {sectionProgress.completed}/{sectionProgress.total} items
             </span>
@@ -93,7 +125,10 @@ export const ChecklistSection = ({
                       key={item.id}
                       item={item}
                       isChecked={checklistState[item.id] || false}
+                      isExcluded={isItemExcluded(item.id)}
                       onToggle={onToggleItem}
+                      onShowInstructions={onShowInstructions}
+                      onToggleExclusion={onToggleItemExclusion}
                     />
                   ))}
                 </div>

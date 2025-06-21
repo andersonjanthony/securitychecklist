@@ -2,21 +2,43 @@ import { useState } from 'react';
 import { ChecklistHeader } from './ChecklistHeader';
 import { SearchAndFilters } from './SearchAndFilters';
 import { ChecklistSection } from './ChecklistSection';
+import { InstructionPanel } from './InstructionPanel';
 import { useChecklistState } from '@/hooks/useChecklistState';
-import { getAllSections } from '@/lib/checklist-data';
+import { useExclusionState } from '@/hooks/useExclusionState';
+import { getAllSections, ChecklistItemData } from '@/lib/checklist-data';
 import { exportToPDF } from '@/lib/pdf-export';
 import { InfoIcon } from 'lucide-react';
 
 export const ChecklistApp = () => {
   const { checklistState, toggleItem, clearAllProgress, getProgress, getSectionProgress } = useChecklistState();
+  const { 
+    toggleSectionExclusion, 
+    toggleItemExclusion, 
+    clearAllExclusions, 
+    isSectionExcluded, 
+    isItemExcluded 
+  } = useExclusionState();
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState<'all' | 'complete' | 'incomplete'>('all');
+  const [selectedItem, setSelectedItem] = useState<ChecklistItemData | null>(null);
+  const [showInstructions, setShowInstructions] = useState(false);
   
   const progress = getProgress();
   const sections = getAllSections();
 
   const handleExportPDF = () => {
     exportToPDF(checklistState);
+  };
+
+  const handleShowInstructions = (item: ChecklistItemData) => {
+    setSelectedItem(item);
+    setShowInstructions(true);
+  };
+
+  const handleCloseInstructions = () => {
+    setShowInstructions(false);
+    setSelectedItem(null);
   };
 
   return (
@@ -47,6 +69,7 @@ export const ChecklistApp = () => {
             filter={filter}
             onFilterChange={setFilter}
             onClearProgress={clearAllProgress}
+            onClearExclusions={clearAllExclusions}
             onExportPDF={handleExportPDF}
           />
 
@@ -76,6 +99,11 @@ export const ChecklistApp = () => {
                 checklistState={checklistState}
                 sectionProgress={getSectionProgress(section)}
                 onToggleItem={toggleItem}
+                onShowInstructions={handleShowInstructions}
+                onToggleItemExclusion={toggleItemExclusion}
+                onToggleSectionExclusion={toggleSectionExclusion}
+                isSectionExcluded={isSectionExcluded(section)}
+                isItemExcluded={isItemExcluded}
                 searchQuery={searchQuery}
                 filter={filter}
               />
@@ -83,6 +111,15 @@ export const ChecklistApp = () => {
           </div>
         </div>
       </main>
+
+      {/* Instruction Panel */}
+      {selectedItem && (
+        <InstructionPanel
+          item={selectedItem}
+          isOpen={showInstructions}
+          onClose={handleCloseInstructions}
+        />
+      )}
     </div>
   );
 };

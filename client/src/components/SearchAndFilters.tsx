@@ -1,4 +1,4 @@
-import { Search, RotateCcw } from 'lucide-react';
+import { Search, RotateCcw, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -8,6 +8,7 @@ interface SearchAndFiltersProps {
   filter: 'all' | 'complete' | 'incomplete';
   onFilterChange: (filter: 'all' | 'complete' | 'incomplete') => void;
   onClearProgress: () => void;
+  onClearExclusions: () => void;
   onExportPDF: () => void;
 }
 
@@ -17,11 +18,18 @@ export const SearchAndFilters = ({
   filter,
   onFilterChange,
   onClearProgress,
+  onClearExclusions,
   onExportPDF
 }: SearchAndFiltersProps) => {
   const handleClearProgress = () => {
     if (confirm('Are you sure you want to clear all progress? This action cannot be undone.')) {
       onClearProgress();
+    }
+  };
+
+  const handleClearExclusions = () => {
+    if (confirm('Are you sure you want to include all currently excluded items and sections?')) {
+      onClearExclusions();
     }
   };
 
@@ -64,16 +72,18 @@ export const SearchAndFilters = ({
           </Button>
         </div>
       </div>
-      <div className="mt-4 sm:hidden">
-        <div className="flex space-x-2">
-          <Button onClick={onExportPDF} className="flex-1">
-            Export PDF
-          </Button>
-          <Button variant="outline" onClick={handleClearProgress}>
-            <RotateCcw className="w-4 h-4 mr-2" />
-            Clear All
-          </Button>
-        </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Button onClick={onExportPDF} className="sm:hidden flex-1">
+          Export PDF
+        </Button>
+        <Button variant="outline" onClick={handleClearProgress} className="flex-1 sm:flex-initial">
+          <RotateCcw className="w-4 h-4 mr-2" />
+          Clear Progress
+        </Button>
+        <Button variant="outline" onClick={handleClearExclusions} className="flex-1 sm:flex-initial">
+          <Eye className="w-4 h-4 mr-2" />
+          Show All
+        </Button>
       </div>
     </div>
   );
