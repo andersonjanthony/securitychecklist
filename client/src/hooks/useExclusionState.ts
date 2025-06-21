@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSessionSync } from './useSessionSync';
 
 export interface ExclusionState {
   excludedSections: Set<string>;
@@ -10,31 +11,36 @@ export const useExclusionState = () => {
     excludedSections: new Set(),
     excludedItems: new Set()
   });
+  const { sessionId, isLoading, saveExclusionState, loadUserData } = useSessionSync();
 
-  // Load state from localStorage on mount
+  // Load state from database when session is ready
   useEffect(() => {
-    const saved = localStorage.getItem('salesforce-security-checklist-exclusions');
-    if (saved) {
-      try {
-        const parsedState = JSON.parse(saved);
-        setExclusionState({
-          excludedSections: new Set(parsedState.excludedSections || []),
-          excludedItems: new Set(parsedState.excludedItems || [])
-        });
-      } catch (error) {
-        console.error('Failed to parse saved exclusion state:', error);
-      }
+    if (!isLoading && sessionId) {
+      loadUserData().then(data => {
+        if (data?.exclusionState) {
+          setExclusionState({
+            excludedSections: new Set(data.exclusionState.excludedSections || []),
+            excludedItems: new Set(data.exclusionState.excludedItems || [])
+          });
+        }
+      });
     }
-  }, []);
+  }, [sessionId, isLoading, loadUserData]);
 
-  // Save state to localStorage whenever it changes
+  // Save state to database whenever it changes (debounced)
   useEffect(() => {
-    const stateToSave = {
-      excludedSections: Array.from(exclusionState.excludedSections),
-      excludedItems: Array.from(exclusionState.excludedItems)
-    };
-    localStorage.setItem('salesforce-security-checklist-exclusions', JSON.stringify(stateToSave));
-  }, [exclusionState]);
+    if (!sessionId || isLoading) return;
+    
+    const timeoutId = setTimeout(() => {
+      const stateToSave = {
+        excludedSections: Array.from(exclusionState.excludedSections),
+        excludedItems: Array.from(exclusionState.excludedItems)
+      };
+      saveExclusionState(stateToSave);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [exclusionState, sessionId, isLoading, saveExclusionState]);
 
   const toggleSectionExclusion = (sectionName: string) => {
     setExclusionState(prev => {

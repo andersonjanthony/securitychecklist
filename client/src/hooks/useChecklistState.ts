@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { checklistData } from '@/lib/checklist-data';
+import { useSessionSync } from './useSessionSync';
 
 export interface ChecklistState {
   [itemId: string]: boolean;
@@ -7,24 +8,29 @@ export interface ChecklistState {
 
 export const useChecklistState = () => {
   const [checklistState, setChecklistState] = useState<ChecklistState>({});
+  const { sessionId, isLoading, saveChecklistState, loadUserData } = useSessionSync();
 
-  // Load state from localStorage on mount
+  // Load state from database when session is ready
   useEffect(() => {
-    const saved = localStorage.getItem('salesforce-security-checklist');
-    if (saved) {
-      try {
-        const parsedState = JSON.parse(saved);
-        setChecklistState(parsedState);
-      } catch (error) {
-        console.error('Failed to parse saved checklist state:', error);
-      }
+    if (!isLoading && sessionId) {
+      loadUserData().then(data => {
+        if (data?.checklistState) {
+          setChecklistState(data.checklistState);
+        }
+      });
     }
-  }, []);
+  }, [sessionId, isLoading, loadUserData]);
 
-  // Save state to localStorage whenever it changes
+  // Save state to database whenever it changes (debounced)
   useEffect(() => {
-    localStorage.setItem('salesforce-security-checklist', JSON.stringify(checklistState));
-  }, [checklistState]);
+    if (!sessionId || isLoading) return;
+    
+    const timeoutId = setTimeout(() => {
+      saveChecklistState(checklistState);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [checklistState, sessionId, isLoading, saveChecklistState]);
 
   const toggleItem = (itemId: string) => {
     setChecklistState(prev => ({

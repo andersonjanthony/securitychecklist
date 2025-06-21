@@ -10,6 +10,11 @@ import { exportToPDF } from '@/lib/pdf-export';
 import { InfoIcon } from 'lucide-react';
 
 export const ChecklistApp = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState<'all' | 'complete' | 'incomplete'>('all');
+  const [selectedItem, setSelectedItem] = useState<ChecklistItemData | null>(null);
+  const [showInstructions, setShowInstructions] = useState(false);
+  
   const { checklistState, toggleItem, clearAllProgress, getProgress, getSectionProgress } = useChecklistState();
   const { 
     toggleSectionExclusion, 
@@ -18,11 +23,7 @@ export const ChecklistApp = () => {
     isSectionExcluded, 
     isItemExcluded 
   } = useExclusionState();
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState<'all' | 'complete' | 'incomplete'>('all');
-  const [selectedItem, setSelectedItem] = useState<ChecklistItemData | null>(null);
-  const [showInstructions, setShowInstructions] = useState(false);
+
   
   const progress = getProgress();
   const sections = getAllSections();

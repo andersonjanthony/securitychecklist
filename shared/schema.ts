@@ -1,4 +1,4 @@
-import { pgTable, text, serial, boolean, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, boolean, integer, timestamp, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -8,14 +8,14 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
 });
 
-export const checklistItems = pgTable("checklist_items", {
+export const userSessions = pgTable("user_sessions", {
   id: serial("id").primaryKey(),
-  itemId: text("item_id").notNull().unique(),
-  section: text("section").notNull(),
-  subsection: text("subsection"),
-  title: text("title").notNull(),
-  priority: text("priority").notNull(), // 'critical', 'high', 'medium', 'low'
-  isCompleted: boolean("is_completed").default(false),
+  sessionId: text("session_id").notNull().unique(),
+  userId: integer("user_id").references(() => users.id),
+  checklistState: jsonb("checklist_state").default({}),
+  exclusionState: jsonb("exclusion_state").default({}),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
@@ -23,11 +23,13 @@ export const insertUserSchema = createInsertSchema(users).pick({
   password: true,
 });
 
-export const insertChecklistItemSchema = createInsertSchema(checklistItems).omit({
+export const insertUserSessionSchema = createInsertSchema(userSessions).omit({
   id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
-export type ChecklistItem = typeof checklistItems.$inferSelect;
-export type InsertChecklistItem = z.infer<typeof insertChecklistItemSchema>;
+export type UserSession = typeof userSessions.$inferSelect;
+export type InsertUserSession = z.infer<typeof insertUserSessionSchema>;
